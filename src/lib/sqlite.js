@@ -1,7 +1,10 @@
 import sqlite3 from 'better-sqlite3';
 
-const db = sqlite3(':memory:'); // For in-memory database
-// Or use a file: const db = sqlite3('growth.db');
+const dbPath = process.env.NODE_ENV === 'production' 
+  ? '/.netlify/db/growth.db'
+  : ':memory:';
+
+const db = sqlite3(dbPath);
 
 // Create tables
 db.exec(`
